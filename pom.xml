@@ -11,6 +11,7 @@
     <modules>
         <module>webCrawler-collector</module>
         <module>webCrawler-core</module>
+        <module>webCrawler-data-analysis</module>
     </modules>
 
 
