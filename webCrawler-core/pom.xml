@@ -11,5 +11,13 @@
 
     <artifactId>webCrawler-core</artifactId>
 
+    <dependencies>
+        <!-- proxy -->
+        <dependency>
+            <groupId>com.virjar</groupId>
+            <artifactId>dungproxy-webmagic6</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+    </dependencies>
 
 </project>
