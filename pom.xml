@@ -29,6 +29,10 @@
         <guava.version>15.0</guava.version>
 
         <com.alibaba.druid.version>1.0.25</com.alibaba.druid.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <description>
