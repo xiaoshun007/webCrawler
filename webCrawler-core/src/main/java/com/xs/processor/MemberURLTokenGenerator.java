@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MemberURLTokenGenerator implements DataProcessor<File, String> {
     private static final Logger logger = LoggerFactory.getLogger(MemberURLTokenGenerator.class);
 
-    private Set<String> urlTokens = Sets.newSetFromMap(new ConcurrentHashMap<>());
+    private Set<String> urlTokens = Sets.newSetFromMap(new ConcurrentHashMap());
 
     public final static String URLTOKEN_FILENAME = "url_tokens";
 
