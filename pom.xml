@@ -27,6 +27,8 @@
         <!-- webMagic -->
         <webmagic.version>0.7.3</webmagic.version>
         <guava.version>15.0</guava.version>
+
+        <com.alibaba.druid.version>1.0.25</com.alibaba.druid.version>
     </properties>
 
     <description>
@@ -181,6 +183,13 @@
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>1.2.2</version>
+        </dependency>
+
+        <!--druid==>阿里巴巴数据库连接池-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${com.alibaba.druid.version}</version>
         </dependency>
 
         <!-- 格式化对象，方便输出日志 -->
