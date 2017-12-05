@@ -5,6 +5,7 @@ import com.virjar.dungproxy.client.ippool.config.DungProxyContext;
 import com.virjar.dungproxy.client.ippool.strategy.impl.WhiteListProxyStrategy;
 import com.virjar.dungproxy.webmagic6.DungProxyDownloader;
 import com.xs.configure.CrawlerConfiguration;
+import com.xs.processor.MemberURLTokenGenerator;
 import com.xs.util.StringHelper;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;

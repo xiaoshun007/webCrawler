@@ -1,10 +1,7 @@
 package com.xs.processor;
 
-import com.brianway.webporter.collector.zhihu.ZhihuConfiguration;
 import com.brianway.webporter.data.BaseAssembler;
-import com.brianway.webporter.data.DataProcessor;
 import com.brianway.webporter.data.FileRawInput;
-import com.brianway.webporter.util.FileHelper;
 import com.google.common.collect.Sets;
 import com.xs.configure.CrawlerConfiguration;
 import com.xs.util.FileHelper;

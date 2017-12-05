@@ -44,6 +44,21 @@ public class FileHelper {
         return sb.toString();
     }
 
+    public static Optional<List<String>> processFile(File file, BufferdReaderProcessor p) {
+        return processFile(file.getPath(), p);
+    }
 
+    public static Optional<List<String>> processFile(String filePath, BufferdReaderProcessor p) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            return Optional.ofNullable(p.process(br));
+        } catch (IOException e) {
+            logger.error("IOException when process file : {}", e);
+        }
+        return Optional.empty();
+    }
+
+    public interface BufferdReaderProcessor {
+        List<String> process(BufferedReader b) throws IOException;
+    }
 
 }
