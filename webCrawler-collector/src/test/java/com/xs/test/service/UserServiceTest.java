@@ -1,14 +1,16 @@
-package com.xs.service;
+package com.xs.test.service;
 
-import com.xs.basTest.SpringTestCase;
 import com.xs.domain.User;
+import com.xs.service.IUserService;
+import com.xs.test.baseTest.SpringTestCase;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 
 public class UserServiceTest extends SpringTestCase {
 
-    @Autowired
-    private UserService userService;
+    @Resource
+    private IUserService userService;
 
     @Test
     public void selectUserByIdTest(){

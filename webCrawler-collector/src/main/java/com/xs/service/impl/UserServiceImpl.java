@@ -1,16 +1,17 @@
 package com.xs.service.impl;
 
-import com.xs.dao.UserDao;
+import com.xs.dao.IUserDao;
 import com.xs.domain.User;
-import com.xs.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.xs.service.IUserService;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserServiceImpl implements UserService {
+import javax.annotation.Resource;
 
-    @Autowired
-    private UserDao userDao;
+@Service("userService")
+public class UserServiceImpl implements IUserService {
+
+    @Resource
+    private IUserDao userDao;
 
     public User selectUserById(Integer userId) {
         return userDao.selectUserById(userId);
