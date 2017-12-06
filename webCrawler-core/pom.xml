@@ -35,11 +35,7 @@
             <artifactId>dungproxy-webmagic6</artifactId>
             <version>0.0.1</version>
         </dependency>
-        <dependency>
-            <groupId>us.codecraft</groupId>
-            <artifactId>webmagic-core</artifactId>
-            <version>0.6.1</version>
-        </dependency>
+
     </dependencies>
 
 </project>

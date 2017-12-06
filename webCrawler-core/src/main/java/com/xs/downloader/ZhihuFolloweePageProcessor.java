@@ -62,28 +62,7 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
     }
 
     public void downloadFollowees() {
-        String pipelinePath = new CrawlerConfiguration().getFolloweePath();
-        int crawlSize = 100_0000;
 
-        //以下是通过代码配置规则的方案,如果不使用配置文件,则可以解开注释,通过代码的方式
-        WhiteListProxyStrategy whiteListProxyStrategy = new WhiteListProxyStrategy();
-        whiteListProxyStrategy.addAllHost("www.zhihu.com");
-
-        // Step2 创建并定制代理规则
-        DungProxyContext dungProxyContext = DungProxyContext.create().setNeedProxyStrategy(whiteListProxyStrategy).setPoolEnabled(false);
-
-        // Step3 使用代理规则初始化默认IP池
-        IpPoolHolder.init(dungProxyContext);
-
-        Spider.create(new ZhihuFolloweePageProcessor())
-                .setScheduler(//new QueueScheduler()
-                        new FileCacheQueueScheduler(pipelinePath)
-                                .setDuplicateRemover(new BloomFilterDuplicateRemover(crawlSize)))
-                .setDownloader(new DungProxyDownloader())
-                .addPipeline(new CrawlerPipeline(pipelinePath))
-                .addUrl(generateFolloweeUrl("kaifulee"))
-                .thread(20)
-                .run();
     }
 
     /**
@@ -111,7 +90,7 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
                 .setDownloader(new DungProxyDownloader())
                 .addPipeline(new CrawlerPipeline(pipelinePath))
                 .addUrl(generateFolloweeUrl("kaifulee"))
-                .thread(20)
+                .thread(30)
                 .run();
     }
 }
