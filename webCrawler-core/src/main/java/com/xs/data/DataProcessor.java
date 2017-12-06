@@ -1,13 +1,12 @@
-package com.xs.processor;
+package com.xs.data;
 
-import com.xs.data.DataFlow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
- * Created by xs on 16/11/30.
+ * Created by brian on 16/11/30.
  * 数据处理接口,根据具体业务来进行拓展和实现
  */
 public interface DataProcessor<K, V> {

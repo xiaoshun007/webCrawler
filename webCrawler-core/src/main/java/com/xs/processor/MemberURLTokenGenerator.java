@@ -1,17 +1,26 @@
 package com.xs.processor;
 
-import com.brianway.webporter.data.BaseAssembler;
-import com.brianway.webporter.data.FileRawInput;
 import com.google.common.collect.Sets;
 import com.xs.configure.CrawlerConfiguration;
+import com.xs.data.BaseAssembler;
+import com.xs.data.DataProcessor;
+import com.xs.data.FileRawInput;
 import com.xs.util.FileHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.selector.Json;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -20,12 +29,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MemberURLTokenGenerator implements DataProcessor<File, String> {
     private static final Logger logger = LoggerFactory.getLogger(MemberURLTokenGenerator.class);
 
-    private Set<String> urlTokens = Sets.newSetFromMap(new ConcurrentHashMap());
+    private Set<String> urlTokens = Sets.newSetFromMap(new ConcurrentHashMap<>());
 
     public final static String URLTOKEN_FILENAME = "url_tokens";
 
-    private final static String DEFAULT_FOLDER = new CrawlerConfiguration().getMemberDataPath();
-    private final static String DEFAULT_PATH = new CrawlerConfiguration().getMemberPath() + URLTOKEN_FILENAME;
+    private final static String DEFAULT_FOLDER = new CrawlerConfiguration().getFolloweeDataPath();
+    private final static String DEFAULT_PATH = new CrawlerConfiguration().getFolloweePath() + URLTOKEN_FILENAME;
 
     private String folder;
     private String path;

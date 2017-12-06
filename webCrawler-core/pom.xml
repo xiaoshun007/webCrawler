@@ -10,12 +10,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>webCrawler-core</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <!-- proxy -->
         <dependency>
             <groupId>com.virjar</groupId>
-            <artifactId>dungproxy-webmagic6</artifactId>
+            <artifactId>dungproxy-webmagic7</artifactId>
             <version>0.0.1</version>
         </dependency>
     </dependencies>
