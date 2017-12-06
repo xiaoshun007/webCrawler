@@ -15,4 +15,12 @@
     <build>
         <finalName>webCrawler-collector</finalName>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.xs.webCrawler</groupId>
+            <artifactId>webCrawler-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
