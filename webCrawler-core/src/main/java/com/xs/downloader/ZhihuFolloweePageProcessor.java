@@ -36,7 +36,7 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
 
     private Site site = new CrawlerConfiguration().getSite();
 
-    private void addProxy() {
+    private static HttpClientDownloader addProxy() {
         // IP代理池
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         try {
@@ -46,6 +46,8 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return httpClientDownloader;
     }
 
     /**
@@ -110,7 +112,7 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
      * 下载关注列表的用户数据,用于提取 url_tokens
      * @param args 无须其他参数
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String pipelinePath = new CrawlerConfiguration().getFolloweePath();
         int crawlSize = 100_0000;
 
@@ -128,7 +130,7 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
                 .setScheduler(//new QueueScheduler()
                         new FileCacheQueueScheduler(pipelinePath)
                                 .setDuplicateRemover(new BloomFilterDuplicateRemover(crawlSize)))
-                .setDownloader(new DungProxyDownloader())
+                .setDownloader(addProxy())
                 .addPipeline(new CrawlerPipeline(pipelinePath))
                 .addUrl(generateFolloweeUrl("kaifulee"))
                 .thread(30)
