@@ -2,6 +2,7 @@ package com.xs.downloader;
 
 import com.virjar.dungproxy.client.ippool.IpPoolHolder;
 import com.virjar.dungproxy.client.ippool.config.DungProxyContext;
+import com.virjar.dungproxy.client.ippool.strategy.impl.JSONFileAvProxyDumper;
 import com.virjar.dungproxy.client.ippool.strategy.impl.WhiteListProxyStrategy;
 import com.virjar.dungproxy.webmagic7.DungProxyDownloader;
 import com.xs.configure.CrawlerConfiguration;
@@ -57,7 +58,7 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
      * @return
      */
     private static List<Proxy> buildProxyIP() throws IOException {
-        Document parse = Jsoup.parse(new URL("http://www.89ip.cn/tiqv.php?sxb=&tqsl=500&ports=&ktip=&xl=on&submit=%CC%E1++%C8%A1"), 5000);
+        Document parse = Jsoup.parse(new URL("http://www.89ip.cn/tiqv.php?sxb=&tqsl=50&ports=&ktip=&xl=on&submit=%CC%E1++%C8%A1"), 5000);
         String pattern = "(\\d+)\\.(\\d+)\\.(\\d+)\\.(\\d+):(\\d+)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(parse.toString());
@@ -117,23 +118,33 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
         int crawlSize = 100_0000;
 
         //以下是通过代码配置规则的方案,如果不使用配置文件,则可以解开注释,通过代码的方式
+//        WhiteListProxyStrategy whiteListProxyStrategy = new WhiteListProxyStrategy();
+//        whiteListProxyStrategy.addAllHost("www.zhihu.com");
+//
+//        // Step2 创建并定制代理规则
+//        DungProxyContext dungProxyContext = DungProxyContext.create().setNeedProxyStrategy(whiteListProxyStrategy).setPoolEnabled(false);
+//
+//        // Step3 使用代理规则初始化默认IP池
+//        IpPoolHolder.init(dungProxyContext);
+
         WhiteListProxyStrategy whiteListProxyStrategy = new WhiteListProxyStrategy();
         whiteListProxyStrategy.addAllHost("www.zhihu.com");
-
-        // Step2 创建并定制代理规则
-        DungProxyContext dungProxyContext = DungProxyContext.create().setNeedProxyStrategy(whiteListProxyStrategy).setPoolEnabled(false);
-
-        // Step3 使用代理规则初始化默认IP池
+        JSONFileAvProxyDumper jsonFileAvProxyDumper = new JSONFileAvProxyDumper();
+        jsonFileAvProxyDumper.setDumpFileName("availableProxy.json");
+        DungProxyContext dungProxyContext = DungProxyContext.create().setNeedProxyStrategy(whiteListProxyStrategy)
+                .setAvProxyDumper(jsonFileAvProxyDumper).setPoolEnabled(true);
+        dungProxyContext.getGroupBindRouter().buildCombinationRule("www.zhihu.com:.*zhihu.*");
         IpPoolHolder.init(dungProxyContext);
 
         Spider.create(new ZhihuFolloweePageProcessor())
                 .setScheduler(//new QueueScheduler()
                         new FileCacheQueueScheduler(pipelinePath)
                                 .setDuplicateRemover(new BloomFilterDuplicateRemover(crawlSize)))
-                .setDownloader(addProxy())
+//                .setDownloader(addProxy())
+                .setDownloader(new DungProxyDownloader())
                 .addPipeline(new CrawlerPipeline(pipelinePath))
                 .addUrl(generateFolloweeUrl("kaifulee"))
-                .thread(30)
+                .thread(60)
                 .run();
     }
 }
