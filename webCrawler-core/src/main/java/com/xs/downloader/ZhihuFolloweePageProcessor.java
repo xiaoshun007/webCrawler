@@ -2,8 +2,6 @@ package com.xs.downloader;
 
 import com.virjar.dungproxy.client.ippool.IpPoolHolder;
 import com.virjar.dungproxy.client.ippool.config.DungProxyContext;
-import com.virjar.dungproxy.client.ippool.strategy.impl.JSONFileAvProxyDumper;
-import com.virjar.dungproxy.client.ippool.strategy.impl.WhiteListProxyStrategy;
 import com.virjar.dungproxy.webmagic7.DungProxyDownloader;
 import com.virjar.dungproxy.webmagic7.DungProxyProvider;
 import com.xs.configure.CrawlerConfiguration;
@@ -129,22 +127,29 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
 //        // Step3 使用代理规则初始化默认IP池
 //        IpPoolHolder.init(dungProxyContext);
 
-        WhiteListProxyStrategy whiteListProxyStrategy = new WhiteListProxyStrategy();
-        whiteListProxyStrategy.addAllHost("www.zhihu.com");
-        JSONFileAvProxyDumper jsonFileAvProxyDumper = new JSONFileAvProxyDumper();
-        jsonFileAvProxyDumper.setDumpFileName("availableProxy.json");
-        DungProxyContext dungProxyContext = DungProxyContext.create().setNeedProxyStrategy(whiteListProxyStrategy)
-                .setAvProxyDumper(jsonFileAvProxyDumper).setPoolEnabled(true);
+//        WhiteListProxyStrategy whiteListProxyStrategy = new WhiteListProxyStrategy();
+//        whiteListProxyStrategy.addAllHost("www.zhihu.com");
+//        JSONFileAvProxyDumper jsonFileAvProxyDumper = new JSONFileAvProxyDumper();
+//        jsonFileAvProxyDumper.setDumpFileName("availableProxy.json");
+//        DungProxyContext dungProxyContext = DungProxyContext.create().setNeedProxyStrategy(whiteListProxyStrategy)
+//                .setAvProxyDumper(jsonFileAvProxyDumper).setPoolEnabled(true);
+//        dungProxyContext.getGroupBindRouter().buildCombinationRule("www.zhihu.com:.*zhihu.*");
+//        IpPoolHolder.init(dungProxyContext);
+
+        DungProxyContext dungProxyContext = DungProxyContext.create();
+        dungProxyContext.setPoolEnabled(true);
         dungProxyContext.getGroupBindRouter().buildCombinationRule("www.zhihu.com:.*zhihu.*");
         IpPoolHolder.init(dungProxyContext);
-
-//        DungProxyContext dungProxyContext = DungProxyContext.create();
-//        dungProxyContext.setPoolEnabled(true);
-//        IpPoolHolder.init(dungProxyContext);
 //
-//        Downloader downloader = new XXXDownloader();
-//        DungProxyProvider proxyProvider = new DungProxyProvider("www.xxx.cn","http://xxx.cn");
-//        wenshuDownloader.setProxyProvider(proxyProvider);
+//
+//
+//
+//        DungProxyDownloader downloader = new DungProxyDownloader();
+//        DungProxyProvider proxyProvider = new DungProxyProvider("www.zhihu.com","https://www.zhihu.com");
+////        downloader.setProxyProvider(proxyProvider);
+////
+//        HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
+//        httpClientDownloader.setProxyProvider(proxyProvider);
 
         Spider.create(new ZhihuFolloweePageProcessor())
                 .setScheduler(//new QueueScheduler()
