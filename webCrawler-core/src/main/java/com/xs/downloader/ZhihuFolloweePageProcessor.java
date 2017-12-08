@@ -5,6 +5,7 @@ import com.virjar.dungproxy.client.ippool.config.DungProxyContext;
 import com.virjar.dungproxy.client.ippool.strategy.impl.JSONFileAvProxyDumper;
 import com.virjar.dungproxy.client.ippool.strategy.impl.WhiteListProxyStrategy;
 import com.virjar.dungproxy.webmagic7.DungProxyDownloader;
+import com.virjar.dungproxy.webmagic7.DungProxyProvider;
 import com.xs.configure.CrawlerConfiguration;
 import com.xs.util.StringHelper;
 import org.jsoup.Jsoup;
@@ -12,6 +13,7 @@ import org.jsoup.nodes.Document;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.downloader.Downloader;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.proxy.Proxy;
@@ -135,6 +137,14 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
                 .setAvProxyDumper(jsonFileAvProxyDumper).setPoolEnabled(true);
         dungProxyContext.getGroupBindRouter().buildCombinationRule("www.zhihu.com:.*zhihu.*");
         IpPoolHolder.init(dungProxyContext);
+
+//        DungProxyContext dungProxyContext = DungProxyContext.create();
+//        dungProxyContext.setPoolEnabled(true);
+//        IpPoolHolder.init(dungProxyContext);
+//
+//        Downloader downloader = new XXXDownloader();
+//        DungProxyProvider proxyProvider = new DungProxyProvider("www.xxx.cn","http://xxx.cn");
+//        wenshuDownloader.setProxyProvider(proxyProvider);
 
         Spider.create(new ZhihuFolloweePageProcessor())
                 .setScheduler(//new QueueScheduler()
