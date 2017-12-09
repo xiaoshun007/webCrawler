@@ -24,8 +24,9 @@ webCrawler使用maven管理依赖，基于webMagic，因此在项目中需要添
 
 #### 代理依赖
    * 代理使用proxyip项目（https://gitee.com/virjar/proxyipcenter）
-    1.预热ip池：https://gitee.com/virjar/proxyipcenter/blob/master/doc/client/userGuide/warm.md
-    2.添加依赖
+   
+   1.预热ip池：https://gitee.com/virjar/proxyipcenter/blob/master/doc/client/userGuide/warm.md
+   2.添加依赖
    ```xml
     <dependency>
         <groupId>com.virjar</groupId>
