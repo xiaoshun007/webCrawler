@@ -84,7 +84,31 @@ webCrawler使用maven管理依赖，基于webMagic，因此在项目中需要添
         Spider.setDownloader(new DungProxyDownloader())
    ```
 ### 开始爬虫
-打开webCrawler-core模块：src/main/java/com.xs.downloader.ZhihuFolloweePageProcessor.java
+
+* 修改 config.json 文件
+###### 修改site内容
+```json
+特别说明：
+site -- 从浏览器的调用请求头获取配置
+baseDir -- 爬取数据的持久化路径
+    {
+      "site": {
+        "domain": "www.zhihu.com",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
+          "authorization": "your own authorization",
+          "Connection":"keep-alive",
+          "Cookie": "your own cookie"
+        },
+        "retryTimes": 3,
+        "sleepTime": 0,
+        "timeOut": 30000,
+        "cycleRetryTimes": 3
+      },
+      "baseDir": "C:/Users/sanshunfeng/crawlDatas/zhihu-crawl-webporter"
+    }
+```
+* 打开webCrawler-core模块：src/main/java/com.xs.downloader.ZhihuFolloweePageProcessor.java
 run main方法
 
 
