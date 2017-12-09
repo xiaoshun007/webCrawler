@@ -90,6 +90,10 @@ webCrawler使用maven管理依赖，基于webMagic，因此在项目中需要添
 ```json
 特别说明：
 site -- 从浏览器的调用请求头获取配置
+    retryTimes(3) //就我的经验,这个重试一般用处不大
+    timeOut(30000) //在使用代理的情况下,这个需要设置,可以考虑调大线程数目
+    sleepTime(0) //使用代理了之后,代理会通过切换IP来防止反爬。同时,使用代理本身qps降低了,所以这个可以小一些
+    cycleRetryTimes(3) //这个重试会换IP重试,是setRetryTimes的上一层的重试,不要怕三次重试解决一切问题
 baseDir -- 爬取数据的持久化路径
     {
       "site": {
