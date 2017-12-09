@@ -45,6 +45,7 @@ webCrawler使用maven管理依赖，基于webMagic，因此在项目中需要添
    #需要检查的网站的URL,注意需要是GET请求,访问结果是HTTP_OK则认为检查通过。多个URL的话,逗号分割即可如:http://www.baidu.com,https://www.douban.com/group/explore
    proxyclient.preHeater.testList=http://www.zhihu.com
    
+   #同一个IP,在10秒之内,不能重复使用
    proxyclient.proxyUseIntervalMillis=10000
    
    #proxyclient.proxyDomainStrategy.whiteList=www.zhihu.com
