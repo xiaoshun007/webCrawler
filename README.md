@@ -35,7 +35,7 @@ webCrawler使用maven管理依赖，基于webMagic，因此在项目中需要添
         <version>0.0.1</version>
     </dependency>
    ```
-   3.在项目resources目录下添加proxyclient.properties()
+   3.在项目resources目录下添加proxyclient.properties
    * 配置说明
    ```xml
    #对于预热器,配置任务规则
@@ -45,7 +45,6 @@ webCrawler使用maven管理依赖，基于webMagic，因此在项目中需要添
    #需要检查的网站的URL,注意需要是GET请求,访问结果是HTTP_OK则认为检查通过。多个URL的话,逗号分割即可如:http://www.baidu.com,https://www.douban.com/group/explore
    proxyclient.preHeater.testList=http://www.zhihu.com
    
-   #ͬ
    proxyclient.proxyUseIntervalMillis=10000
    
    #proxyclient.proxyDomainStrategy.whiteList=www.zhihu.com
