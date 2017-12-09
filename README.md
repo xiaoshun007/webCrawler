@@ -53,7 +53,7 @@ webCrawler使用maven管理依赖，基于webMagic，因此在项目中需要添
    proxyclient.preHeater.serialize.step=30
    ```
    * 在执行preHeat.sh的时候，如果使用mac请注意Java的默认安装目录，根据不同的路径修改preHeat.sh的第38行
-   ** 检查本机环境变量
+   ###### 检查本机Java环境变量
    ```xml
       打开终端，执行     /usr/libexec/java_home -V
       
