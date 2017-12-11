@@ -12,5 +12,5 @@
     "timeOut": 30000,
     "cycleRetryTimes": 3
   },
-  "baseDir": "/usr/local/services／datas/crawler-data/"
+  "baseDir": "/Users/san/crawlDatas/zhihu/"
 }
