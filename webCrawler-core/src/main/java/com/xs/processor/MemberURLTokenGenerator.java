@@ -80,7 +80,7 @@ public class MemberURLTokenGenerator implements DataProcessor<File, String> {
     }
 
     private Set<String> extractTokens() {
-        BaseAssembler.create(new FileRawInput(folder), this).thread(10).run();
+        BaseAssembler.create(new FileRawInput(folder), this).thread(30).run();
         return urlTokens;
     }
 

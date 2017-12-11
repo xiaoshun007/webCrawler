@@ -1,5 +1,8 @@
 package com.xs.downloader;
 
+import com.virjar.dungproxy.client.ippool.IpPoolHolder;
+import com.virjar.dungproxy.client.ippool.config.DungProxyContext;
+import com.virjar.dungproxy.webmagic7.DungProxyDownloader;
 import com.xs.configure.CrawlerConfiguration;
 import com.xs.processor.MemberURLTokenGenerator;
 import com.xs.util.StringHelper;
@@ -42,8 +45,14 @@ public class ZhihuMemberProcessor implements PageProcessor {
         CrawlerConfiguration configuration = new CrawlerConfiguration();
         String pipelinePath = configuration.getMemberPath();
 
+        DungProxyContext dungProxyContext = DungProxyContext.create();
+        dungProxyContext.setPoolEnabled(true);
+        dungProxyContext.getGroupBindRouter().buildCombinationRule("www.zhihu.com:.*zhihu.*");
+        IpPoolHolder.init(dungProxyContext);
+
         Spider spider = Spider.create(new ZhihuMemberProcessor())
                 .setScheduler(new FileCacheQueueScheduler(pipelinePath))
+                .setDownloader(new DungProxyDownloader())
                 .addPipeline(new CrawlerPipeline(pipelinePath))
                 .thread(20);
 
