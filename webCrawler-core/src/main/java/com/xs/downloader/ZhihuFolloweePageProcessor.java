@@ -104,7 +104,23 @@ public class ZhihuFolloweePageProcessor implements PageProcessor {
     }
 
     public void downloadFollowees() {
+        String pipelinePath = new CrawlerConfiguration().getFolloweePath();
+        int crawlSize = 100_0000;
 
+        DungProxyContext dungProxyContext = DungProxyContext.create();
+        dungProxyContext.setPoolEnabled(true);
+        dungProxyContext.getGroupBindRouter().buildCombinationRule("www.zhihu.com:.*zhihu.*");
+        IpPoolHolder.init(dungProxyContext);
+
+        Spider.create(new ZhihuFolloweePageProcessor())
+                .setScheduler(
+                        new FileCacheQueueScheduler(pipelinePath)
+                                .setDuplicateRemover(new BloomFilterDuplicateRemover(crawlSize)))
+                .setDownloader(new DungProxyDownloader())
+                .addPipeline(new CrawlerPipeline(pipelinePath))
+                .addUrl(generateFolloweeUrl("kaifulee"))
+                .thread(60)
+                .run();
     }
 
     /**
