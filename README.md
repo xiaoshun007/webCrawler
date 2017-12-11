@@ -1,4 +1,4 @@
-使用WebMagic练习
+一个WebMagic的爬虫
 
 ## 快速开始
 
