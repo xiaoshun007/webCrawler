@@ -1,11 +1,11 @@
 package com.xs.uploader;
 
-import com.brianway.webporter.collector.zhihu.ZhihuConfiguration;
-import com.brianway.webporter.collector.zhihu.processor.ZhihuFolloweeDataProcessor;
-import com.brianway.webporter.data.BaseAssembler;
-import com.brianway.webporter.data.DataProcessor;
-import com.brianway.webporter.data.FileRawInput;
-import com.brianway.webporter.data.elasticsearch.Document;
+import com.xs.configure.CrawlerConfiguration;
+import com.xs.data.BaseAssembler;
+import com.xs.data.DataProcessor;
+import com.xs.data.FileRawInput;
+import com.xs.data.elasticSearch.Document;
+import com.xs.processor.ZhihuFolloweeDataProcessor;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +14,7 @@ public class FolloweeUploader {
     public static void upload() {
         String index = "zhihu";
         String type = "followee";
-        ZhihuConfiguration configuration = new ZhihuConfiguration();
+        CrawlerConfiguration configuration = new CrawlerConfiguration();
 
         String folder = configuration.getFolloweeDataPath();
         DataProcessor<File, Document> processor = new ZhihuFolloweeDataProcessor();

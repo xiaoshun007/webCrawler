@@ -1,8 +1,8 @@
 package com.xs.processor;
 
-import com.brianway.webporter.data.DataProcessor;
-import com.brianway.webporter.data.HashSetDuplicateRemover;
-import com.brianway.webporter.data.elasticsearch.Document;
+import com.xs.data.DataProcessor;
+import com.xs.data.HashSetDuplicateRemover;
+import com.xs.data.elasticSearch.Document;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.selector.Json;
 
