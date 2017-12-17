@@ -1,17 +1,13 @@
 package com.xs.downloader;
 
 import com.alibaba.fastjson.JSONObject;
-import com.virjar.dungproxy.client.ippool.IpPoolHolder;
-import com.virjar.dungproxy.client.ippool.config.DungProxyContext;
-import com.virjar.dungproxy.webmagic7.DungProxyDownloader;
+import com.xs.Pipeliner.LianjiaJsonFilePipleline;
 import com.xs.configure.LianjiaConfiguration;
 import com.xs.data.domain.lianjia.*;
 import org.apache.commons.collections.CollectionUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.pipeline.FilePipeline;
-import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.scheduler.FileCacheQueueScheduler;
 import us.codecraft.webmagic.selector.Html;
@@ -243,7 +239,7 @@ public class LianjiaProcessor implements PageProcessor {
         Spider.create(new LianjiaProcessor())
                 .setScheduler(new FileCacheQueueScheduler(pipelinePath))
 //                .setDownloader(new DungProxyDownloader())
-                .addPipeline(new JsonFilePipeline(pipelinePath))
+                .addPipeline(new LianjiaJsonFilePipleline(pipelinePath))
                 .addUrl("https://wh.fang.lianjia.com/loupan/pg1/")
                 .thread(30)
                 .run();
