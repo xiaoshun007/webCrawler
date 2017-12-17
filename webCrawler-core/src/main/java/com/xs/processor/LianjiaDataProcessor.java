@@ -16,6 +16,7 @@ import java.util.List;
  * 从原始数据生成满足 Elasticsearch 格式的 json 数据
  */
 public class LianjiaDataProcessor implements DataProcessor<File, Document> {
+    // 去重
     private HashSetDuplicateRemover<String> duplicateRemover = new HashSetDuplicateRemover<>();
 
     @Override
@@ -26,7 +27,9 @@ public class LianjiaDataProcessor implements DataProcessor<File, Document> {
         if (!StringUtils.isEmpty(s)) {
             documents = new ArrayList<>(1);
             Json json = new Json(s);
+            // 由于数据没有设置id，因此用title作为是否重复到标志
             String title = json.jsonPath("$.title").get();
+            // 数据去重
             if (!duplicateRemover.isDuplicate(title)) {
                 documents.add(new Document(title, s));
             }
@@ -36,7 +39,6 @@ public class LianjiaDataProcessor implements DataProcessor<File, Document> {
 
     private static String readData(File inItem) {
         List<String> datas = FileHelper.processFile(inItem, br -> {
-//            br.readLine();//pass first line
             String s = br.readLine();
             return Collections.singletonList(s);
         }).orElse(new ArrayList<>());

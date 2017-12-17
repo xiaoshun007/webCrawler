@@ -19,6 +19,7 @@ public class LianjiaUploader {
         String type = "wuhan";
         LianjiaConfiguration configuration = new LianjiaConfiguration();
 
+        // 读取的是domain下的数据
         String folder = configuration.getLianjiaDataPath();
         DataProcessor<File, Document> processor = new LianjiaDataProcessor();
 

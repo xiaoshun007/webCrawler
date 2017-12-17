@@ -60,7 +60,8 @@ public class LianjiaProcessor implements PageProcessor {
         String avgPrice = html.xpath("//span[@class=\"junjia\"]/text()").toString();
         // 单位
         String unit = html.xpath("//span[@class=\"yuan\"]/text()").toString();
-        lianjiaDetail.setAvgPrice(avgPrice + unit);
+        // 不指定单位（元/平），方便ES统计
+        lianjiaDetail.setAvgPrice(avgPrice);
         // 最近更新时间
         String lastUpdateTime = html.xpath("//p[@class=\"update\"]//span/text()").toString();
         lianjiaDetail.setLastUpdateTime(lastUpdateTime);
@@ -111,7 +112,7 @@ public class LianjiaProcessor implements PageProcessor {
             for(Selectable htmlNode: houseOnlineNodes) {
                 HouseOnline houseOnline = new HouseOnline();
                 // 房型
-                String houseStyle = htmlNode.xpath("//p[@class=\"p1\"]/text()").toString();
+                String houseStyle = htmlNode.xpath("//p[@class=\"p1\"]/text()").toString().trim();
                 houseOnline.setHouseStyle(houseStyle);
                 // 建面
                 String houseArea = htmlNode.xpath("//p[@class=\"p1\"]//span/text()").toString();
@@ -122,9 +123,9 @@ public class LianjiaProcessor implements PageProcessor {
                 // 状态
                 String houseState = htmlNode.xpath("//span[@class=\"p1-state\"]/text()").toString();
                 houseOnline.setState(houseState);
-                // 均价
+                // 均价（单位：万/套）
                 String houseAvgPrice = htmlNode.xpath("//p[@class=\"p2\"]//span/text()").toString();
-                houseOnline.setAvgPrice(houseAvgPrice + "万/套");
+                houseOnline.setAvgPrice(houseAvgPrice);
                 // 户型解读
                 String interpretation = htmlNode.xpath("//p[@class=\"p3\"]//span/text()").toString();
                 houseOnline.setInterpretation(interpretation);
@@ -165,7 +166,7 @@ public class LianjiaProcessor implements PageProcessor {
 
 
         BuildInfo buildInfo = new BuildInfo();
-        // 楼盘信息
+        // 楼盘信息（多个相同到标签处理方法）
         List<Selectable> buildingNodes = html.xpath("//span[@class=\"label-val\"]/allText()").nodes();
         if (CollectionUtils.isNotEmpty(buildingNodes)) {
             // 楼盘地址
@@ -230,15 +231,8 @@ public class LianjiaProcessor implements PageProcessor {
         LianjiaConfiguration configuration = new LianjiaConfiguration();
         String pipelinePath = configuration.getLianjiaPath();
 
-        // 增加代理池
-//        DungProxyContext dungProxyContext = DungProxyContext.create();
-//        dungProxyContext.setPoolEnabled(true);
-//        dungProxyContext.getGroupBindRouter().buildCombinationRule("wh.fang.lianjia.com:.*lianjia.*");
-//        IpPoolHolder.init(dungProxyContext);
-
         Spider.create(new LianjiaProcessor())
                 .setScheduler(new FileCacheQueueScheduler(pipelinePath))
-//                .setDownloader(new DungProxyDownloader())
                 .addPipeline(new LianjiaJsonFilePipleline(pipelinePath))
                 .addUrl("https://wh.fang.lianjia.com/loupan/pg1/")
                 .thread(30)

@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 
 /**
- * 链家文件
+ * 链家文件添加到队列
  */
 public class LianjiaFileRawInput extends RawInput<File> {
 
