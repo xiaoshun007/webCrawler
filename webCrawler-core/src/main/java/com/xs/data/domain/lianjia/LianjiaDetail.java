@@ -54,7 +54,7 @@ public class LianjiaDetail {
     /**
      * 楼盘动态
      */
-    private List<EstateDynamic> estateDynamics;
+    private EstateDynamic estateDynamic;
 
     /**
      * 户型介绍
@@ -143,12 +143,12 @@ public class LianjiaDetail {
         this.telephone = telephone;
     }
 
-    public List<EstateDynamic> getEstateDynamics() {
-        return estateDynamics;
+    public EstateDynamic getEstateDynamic() {
+        return estateDynamic;
     }
 
-    public void setEstateDynamics(List<EstateDynamic> estateDynamics) {
-        this.estateDynamics = estateDynamics;
+    public void setEstateDynamic(EstateDynamic estateDynamic) {
+        this.estateDynamic = estateDynamic;
     }
 
     public List<HouseOnline> getHouseOnlines() {
