@@ -1,18 +1,21 @@
 package com.xs.downloader;
 
 import com.alibaba.fastjson.JSONObject;
+import com.virjar.dungproxy.client.ippool.IpPoolHolder;
+import com.virjar.dungproxy.client.ippool.config.DungProxyContext;
+import com.virjar.dungproxy.webmagic7.DungProxyDownloader;
 import com.xs.configure.LianjiaConfiguration;
 import com.xs.data.domain.lianjia.*;
 import org.apache.commons.collections.CollectionUtils;
-import org.jsoup.nodes.Element;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.pipeline.FilePipeline;
+import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.scheduler.FileCacheQueueScheduler;
 import us.codecraft.webmagic.selector.Html;
-import us.codecraft.webmagic.selector.HtmlNode;
 import us.codecraft.webmagic.selector.Selectable;
-import us.codecraft.webmagic.selector.XpathSelector;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -203,8 +206,7 @@ public class LianjiaProcessor implements PageProcessor {
 
         lianjiaDetail.setBuildInfo(buildInfo);
 
-        String result = JSONObject.toJSONString(lianjiaDetail);
-        page.putField("content", result);
+        page.putField("content", lianjiaDetail);
     }
 
     @Override
@@ -216,7 +218,8 @@ public class LianjiaProcessor implements PageProcessor {
             this.generateListUrl(page);
             // 详情页
         } else {
-            page.putField("title", page.getHtml().xpath("//a[@class='clear']/text()"));
+            page.putField("title", page.getHtml().xpath("//a[@class='clear']/h1/text()").toString());
+            page.putField(CrawlerPipeline.URL, page.getUrl().toString());
 
             this.buildDetails(page);
         }
@@ -228,6 +231,9 @@ public class LianjiaProcessor implements PageProcessor {
     }
 
     public static void main(String[] args) throws IOException {
+        LianjiaConfiguration configuration = new LianjiaConfiguration();
+        String pipelinePath = configuration.getLianjiaPath();
+
         // 增加代理池
 //        DungProxyContext dungProxyContext = DungProxyContext.create();
 //        dungProxyContext.setPoolEnabled(true);
@@ -235,11 +241,11 @@ public class LianjiaProcessor implements PageProcessor {
 //        IpPoolHolder.init(dungProxyContext);
 
         Spider.create(new LianjiaProcessor())
-//                .setScheduler(new FileCacheQueueScheduler(pipelinePath).setDuplicateRemover(new BloomFilterDuplicateRemover(crawlSize)))
+                .setScheduler(new FileCacheQueueScheduler(pipelinePath))
 //                .setDownloader(new DungProxyDownloader())
-//                .addPipeline(new CrawlerPipeline(pipelinePath))
+                .addPipeline(new JsonFilePipeline(pipelinePath))
                 .addUrl("https://wh.fang.lianjia.com/loupan/pg1/")
-//                .thread(30)
+                .thread(30)
                 .run();
     }
 }
