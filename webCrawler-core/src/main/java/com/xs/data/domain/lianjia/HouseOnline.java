@@ -17,7 +17,7 @@ public class HouseOnline {
     /**
      * 建面
      */
-    private String houseArea;
+    private int houseArea;
 
     /**
      * 朝向
@@ -32,7 +32,7 @@ public class HouseOnline {
     /**
      * 均价
      */
-    private String avgPrice;
+    private double avgPrice;
 
     /**
      * 户型解读
@@ -55,11 +55,11 @@ public class HouseOnline {
         this.houseStyle = houseStyle;
     }
 
-    public String getHouseArea() {
+    public int getHouseArea() {
         return houseArea;
     }
 
-    public void setHouseArea(String houseArea) {
+    public void setHouseArea(int houseArea) {
         this.houseArea = houseArea;
     }
 
@@ -79,11 +79,11 @@ public class HouseOnline {
         this.state = state;
     }
 
-    public String getAvgPrice() {
+    public double getAvgPrice() {
         return avgPrice;
     }
 
-    public void setAvgPrice(String avgPrice) {
+    public void setAvgPrice(double avgPrice) {
         this.avgPrice = avgPrice;
     }
 

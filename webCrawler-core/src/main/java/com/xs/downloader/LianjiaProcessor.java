@@ -5,6 +5,7 @@ import com.xs.Pipeliner.LianjiaJsonFilePipleline;
 import com.xs.configure.LianjiaConfiguration;
 import com.xs.data.domain.lianjia.*;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -61,7 +62,8 @@ public class LianjiaProcessor implements PageProcessor {
         // 单位
         String unit = html.xpath("//span[@class=\"yuan\"]/text()").toString();
         // 不指定单位（元/平），方便ES统计
-        lianjiaDetail.setAvgPrice(avgPrice);
+        avgPrice = StringUtils.isNotBlank(avgPrice) ? avgPrice : "0";
+        lianjiaDetail.setAvgPrice(Double.parseDouble(avgPrice));
         // 最近更新时间
         String lastUpdateTime = html.xpath("//p[@class=\"update\"]//span/text()").toString();
         lianjiaDetail.setLastUpdateTime(lastUpdateTime);
@@ -115,8 +117,13 @@ public class LianjiaProcessor implements PageProcessor {
                 String houseStyle = htmlNode.xpath("//p[@class=\"p1\"]/text()").toString().trim();
                 houseOnline.setHouseStyle(houseStyle);
                 // 建面
-                String houseArea = htmlNode.xpath("//p[@class=\"p1\"]//span/text()").toString();
-                houseOnline.setHouseArea(houseArea);
+                String originalArea = htmlNode.xpath("//p[@class=\"p1\"]//span/text()").toString();
+                String houseArea = "0";
+                if (StringUtils.isNotBlank(originalArea)) {
+                    houseArea = originalArea.replace("建面 ", "").replace("m²", "");
+                }
+
+                houseOnline.setHouseArea(Integer.parseInt(houseArea));
                 // 朝向
                 String orientation = htmlNode.xpath("//span[@class=\"p1-orientation\"]/text()").toString();
                 houseOnline.setOrientation(orientation);
@@ -125,7 +132,8 @@ public class LianjiaProcessor implements PageProcessor {
                 houseOnline.setState(houseState);
                 // 均价（单位：万/套）
                 String houseAvgPrice = htmlNode.xpath("//p[@class=\"p2\"]//span/text()").toString();
-                houseOnline.setAvgPrice(houseAvgPrice);
+                houseAvgPrice = StringUtils.isNotBlank(houseAvgPrice) ? houseAvgPrice : "0";
+                houseOnline.setAvgPrice(Double.parseDouble(houseAvgPrice));
                 // 户型解读
                 String interpretation = htmlNode.xpath("//p[@class=\"p3\"]//span/text()").toString();
                 houseOnline.setInterpretation(interpretation);
@@ -139,8 +147,13 @@ public class LianjiaProcessor implements PageProcessor {
         UserComment userComment = new UserComment();
         List<UserCommentDetail> userCommentDetails = new ArrayList<UserCommentDetail>();
         // 综合评分
-        String totalscore = html.xpath("//span[@class=\"score\"]/text()").toString();
-        userComment.setTotalscore(totalscore);
+        String originalTotalScore = html.xpath("//span[@class=\"score\"]/text()").toString();
+        String totalScore = "0";
+        if (StringUtils.isNotBlank(originalTotalScore)) {
+            totalScore = originalTotalScore.replace("分", "");
+        }
+
+        userComment.setTotalscore(Double.parseDouble(totalScore));
         // 评分备注：高于98.8%同类新盘
         String ratio = html.xpath("//span[@class=\"ratio\"]/text()").toString();
         userComment.setRatio(ratio);
@@ -186,18 +199,25 @@ public class LianjiaProcessor implements PageProcessor {
             buildInfo.setHandoverTime(handoverTime);
             // 容积率
             String plotRatio = buildingNodes.get(7).get();
-            buildInfo.setPlotRatio(plotRatio);
+            plotRatio = plotRatio.equals("暂无") ? "0" : plotRatio;
+            buildInfo.setPlotRatio(Double.parseDouble(plotRatio));
             // 产权年限
             String holding = buildingNodes.get(8).get();
             buildInfo.setHolding(holding);
             // 绿化率
-            String greenRatio = buildingNodes.get(9).get();
-            buildInfo.setGreenRatio(greenRatio);
+            String originalGreenRatio = buildingNodes.get(9).get();
+            String greenRatio = "0";
+            if (StringUtils.isNotBlank(originalGreenRatio) && !originalGreenRatio.equals("暂无")) {
+                greenRatio = originalGreenRatio.replace("%", "");
+            }
+            buildInfo.setGreenRatio(Double.parseDouble(greenRatio));
             // 规划户数
             String houseHolds = buildingNodes.get(10).get();
-            buildInfo.setHouseHolds(houseHolds);
+            houseHolds = StringUtils.isNotBlank(houseHolds) ? houseHolds : "0";
+            buildInfo.setHouseHolds(Integer.parseInt(houseHolds));
             // 物业费用
             String tenementCost = buildingNodes.get(11).get();
+
             buildInfo.setTenementCost(tenementCost);
         }
 

@@ -19,7 +19,7 @@ public class LianjiaDetail {
     /**
      * 均价
      */
-    private String avgPrice;
+    private double avgPrice;
 
     /**
      * 最近更新时间
@@ -87,11 +87,11 @@ public class LianjiaDetail {
         this.houseName = houseName;
     }
 
-    public String getAvgPrice() {
+    public double getAvgPrice() {
         return avgPrice;
     }
 
-    public void setAvgPrice(String avgPrice) {
+    public void setAvgPrice(double avgPrice) {
         this.avgPrice = avgPrice;
     }
 

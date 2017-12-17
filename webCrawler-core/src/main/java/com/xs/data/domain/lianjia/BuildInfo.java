@@ -32,7 +32,7 @@ public class BuildInfo {
     /**
      * 容积率
      */
-    private String plotRatio;
+    private double plotRatio;
 
     /**
      * 产权年限
@@ -42,12 +42,12 @@ public class BuildInfo {
     /**
      * 绿化率
      */
-    private String greenRatio;
+    private double greenRatio;
 
     /**
      * 规划户数
      */
-    private String houseHolds;
+    private int houseHolds;
 
     /**
      * 物业费用
@@ -94,11 +94,11 @@ public class BuildInfo {
         this.handoverTime = handoverTime;
     }
 
-    public String getPlotRatio() {
+    public double getPlotRatio() {
         return plotRatio;
     }
 
-    public void setPlotRatio(String plotRatio) {
+    public void setPlotRatio(double plotRatio) {
         this.plotRatio = plotRatio;
     }
 
@@ -110,19 +110,19 @@ public class BuildInfo {
         this.holding = holding;
     }
 
-    public String getGreenRatio() {
+    public double getGreenRatio() {
         return greenRatio;
     }
 
-    public void setGreenRatio(String greenRatio) {
+    public void setGreenRatio(double greenRatio) {
         this.greenRatio = greenRatio;
     }
 
-    public String getHouseHolds() {
+    public int getHouseHolds() {
         return houseHolds;
     }
 
-    public void setHouseHolds(String houseHolds) {
+    public void setHouseHolds(int houseHolds) {
         this.houseHolds = houseHolds;
     }
 
