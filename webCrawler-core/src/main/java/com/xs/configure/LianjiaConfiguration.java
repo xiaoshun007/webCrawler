@@ -16,6 +16,10 @@ public class LianjiaConfiguration extends BasicConfiguration {
         return getBaseDir() + SUBDIR_MEMBER;
     }
 
+    public String getLianjiaDataPath() {
+        return getLianjiaPath() + site.getDomain() + "/";
+    }
+
     public static void main(String[] args) {
         LianjiaConfiguration configuration = new LianjiaConfiguration();
         System.out.println(configuration.getSite());
