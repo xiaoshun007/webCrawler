@@ -27,11 +27,11 @@ public class LianjiaDataProcessor implements DataProcessor<File, Document> {
         if (!StringUtils.isEmpty(s)) {
             documents = new ArrayList<>(1);
             Json json = new Json(s);
-            // 由于数据没有设置id，因此用title作为是否重复到标志
-            String title = json.jsonPath("$.title").get();
+            // 由于数据没有设置id，因此用url作为是否重复到标志
+            String url = json.jsonPath("$.url").get();
             // 数据去重
-            if (!duplicateRemover.isDuplicate(title)) {
-                documents.add(new Document(title, s));
+            if (!duplicateRemover.isDuplicate(url)) {
+                documents.add(new Document(url, s));
             }
         }
         return documents;
