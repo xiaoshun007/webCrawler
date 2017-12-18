@@ -25,36 +25,25 @@ public class LianJiaMongoPipleline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
 
-        String result = JSON.toJSONString(resultItems.getAll());
-
         MongoDBConfiguration mongoDBConfiguration = new MongoDBConfiguration();
         Mongo mongo = mongoDBConfiguration.getMogo();
+        MongoClient mongoClient = null;
         try{
             // 连接到 mongodb 服务
-            MongoClient mongoClient = new MongoClient( mongo.getServerAddress() , mongo.getPort() );
+            mongoClient = new MongoClient( mongo.getServerAddress() , mongo.getPort() );
 
             // 连接到数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(mongo.getDbName());
             MongoCollection<Document> collection = mongoDatabase.getCollection(mongo.getCollectionName());
 
-            // 记录存在则更新
-            if (isUrlExists(resultItems, collection)) {
-                Document newDocument = new Document();
-                newDocument.put("$set", Document.parse(result));
-
-                Document queryDoc = new Document();
-                queryDoc.put("url", resultItems.get("url"));
-
-                collection.updateOne(queryDoc, newDocument);
-            } else {
-                Document document = Document.parse(result);
-                collection.insertOne(document);
-            }
-
-            // 关闭mongodb防止异常
-            mongoClient.close();
-        }catch(Exception e){
+            saveOrUpdate(resultItems, collection);
+        } catch(Exception e) {
             logger.error( e.getClass().getName() + ": " + e.getMessage() );
+        } finally {
+            // 关闭mongodb防止异常
+            if (null != mongoClient) {
+                mongoClient.close();
+            }
         }
     }
 
@@ -71,6 +60,24 @@ public class LianJiaMongoPipleline implements Pipeline {
             return true;
         }
         return false;
+    }
+
+    private void saveOrUpdate(ResultItems resultItems, MongoCollection<Document> collection) {
+        String result = JSON.toJSONString(resultItems.getAll());
+
+        // 记录存在则更新
+        if (isUrlExists(resultItems, collection)) {
+            Document newDocument = new Document();
+            newDocument.put("$set", Document.parse(result));
+
+            Document queryDoc = new Document();
+            queryDoc.put("url", resultItems.get("url"));
+
+            collection.updateOne(queryDoc, newDocument);
+        } else {
+            Document document = Document.parse(result);
+            collection.insertOne(document);
+        }
     }
 
     public static void main( String args[] ){
