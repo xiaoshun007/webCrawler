@@ -1,6 +1,7 @@
 package com.xs.downloader;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xs.pipeliner.LianJiaMongoPipleline;
 import com.xs.pipeliner.OneFilePipeline;
 import com.xs.configure.LianjiaConfiguration;
 import com.xs.data.domain.lianjia.BuildInfo;
@@ -260,7 +261,7 @@ public class LianjiaProcessor implements PageProcessor {
 
         Spider.create(new LianjiaProcessor())
                 .setScheduler(new FileCacheQueueScheduler(pipelinePath))
-                .addPipeline(new OneFilePipeline(pipelinePath))
+                .addPipeline(new LianJiaMongoPipleline())
                 .addUrl("https://wh.fang.lianjia.com/loupan/pg1/")
                 .thread(30)
                 .run();
