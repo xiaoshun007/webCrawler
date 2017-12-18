@@ -1,4 +1,4 @@
-package com.xs.Pipeliner;
+package com.xs.pipeliner;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.codec.digest.DigestUtils;

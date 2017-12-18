@@ -1,7 +1,7 @@
 package com.xs.downloader;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xs.Pipeliner.OneFilePipeline;
+import com.xs.pipeliner.OneFilePipeline;
 import com.xs.configure.LianjiaConfiguration;
 import com.xs.data.domain.lianjia.BuildInfo;
 import com.xs.data.domain.lianjia.EstateDynamic;
