@@ -31,7 +31,7 @@ public class LianJiaMongoPipleline implements Pipeline {
 
             // 连接到数据库
             MongoDatabase mongoDatabase = mongoClient.getDatabase(mongo.getDbName());
-            MongoCollection<Document> collection = mongoDatabase.getCollection("test");
+            MongoCollection<Document> collection = mongoDatabase.getCollection(mongo.getCollectionName());
             Document document = Document.parse(result);
             collection.insertOne(document);
         }catch(Exception e){

@@ -1,9 +1,10 @@
 {
   "mongo": {
-    "serverAddress": "localhost",
+    "serverAddress": "119.23.48.129",
     "port": 27017,
     "username": "root",
     "password": "root",
-    "dbName": "test"
+    "dbName": "crawler",
+    "collectionName": "lianjia"
   }
 }
