@@ -4,7 +4,7 @@ package com.xs.configure;
  * 链家爬虫-configuration
  */
 public class LianjiaConfiguration extends BasicConfiguration {
-    public static final String SUBDIR_MEMBER = "wuhan/";
+    public static final String SUBDIR_MEMBER = "wuhan1/";
 
     public LianjiaConfiguration(String path) {
         super(path);

@@ -1,9 +1,15 @@
 package com.xs.downloader;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xs.Pipeliner.LianjiaJsonFilePipleline;
+import com.xs.Pipeliner.OneFilePipeline;
 import com.xs.configure.LianjiaConfiguration;
-import com.xs.data.domain.lianjia.*;
+import com.xs.data.domain.lianjia.BuildInfo;
+import com.xs.data.domain.lianjia.EstateDynamic;
+import com.xs.data.domain.lianjia.HouseOnline;
+import com.xs.data.domain.lianjia.LatestOpening;
+import com.xs.data.domain.lianjia.LianjiaDetail;
+import com.xs.data.domain.lianjia.UserComment;
+import com.xs.data.domain.lianjia.UserCommentDetail;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
@@ -107,7 +113,7 @@ public class LianjiaProcessor implements PageProcessor {
         lianjiaDetail.setEstateDynamic(estateDynamic);
 
         // 户型介绍
-        List<HouseOnline> houseOnlines = new ArrayList();
+        List<HouseOnline> houseOnlines = new ArrayList<>();
 
         List<Selectable> houseOnlineNodes = html.xpath("//*[@id=\"house-online\"]/div[1]/div[1]/ul").nodes();
         if (CollectionUtils.isNotEmpty(houseOnlineNodes)) {
@@ -145,7 +151,7 @@ public class LianjiaProcessor implements PageProcessor {
         lianjiaDetail.setHouseOnlines(houseOnlines);
 
         UserComment userComment = new UserComment();
-        List<UserCommentDetail> userCommentDetails = new ArrayList<UserCommentDetail>();
+        List<UserCommentDetail> userCommentDetails = new ArrayList<>();
         // 综合评分
         String originalTotalScore = html.xpath("//span[@class=\"score\"]/text()").toString();
         String totalScore = "0";
@@ -233,6 +239,7 @@ public class LianjiaProcessor implements PageProcessor {
             page.addTargetRequests(page.getHtml().xpath("//div[@class=\"list-wrap\"]").links().regex(URL_DETAIL).all());
 
             this.generateListUrl(page);
+            page.setSkip(true);
             // 详情页
         } else {
             page.putField("title", page.getHtml().xpath("//a[@class='clear']/h1/text()").toString());
@@ -253,7 +260,7 @@ public class LianjiaProcessor implements PageProcessor {
 
         Spider.create(new LianjiaProcessor())
                 .setScheduler(new FileCacheQueueScheduler(pipelinePath))
-                .addPipeline(new LianjiaJsonFilePipleline(pipelinePath))
+                .addPipeline(new OneFilePipeline(pipelinePath))
                 .addUrl("https://wh.fang.lianjia.com/loupan/pg1/")
                 .thread(30)
                 .run();
