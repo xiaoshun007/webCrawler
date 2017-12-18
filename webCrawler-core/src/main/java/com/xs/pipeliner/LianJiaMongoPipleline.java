@@ -34,6 +34,9 @@ public class LianJiaMongoPipleline implements Pipeline {
             MongoCollection<Document> collection = mongoDatabase.getCollection(mongo.getCollectionName());
             Document document = Document.parse(result);
             collection.insertOne(document);
+
+            // 关闭mongodb防止异常
+            mongoClient.close();
         }catch(Exception e){
             logger.error( e.getClass().getName() + ": " + e.getMessage() );
         }
