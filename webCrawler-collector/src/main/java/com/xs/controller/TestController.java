@@ -1,5 +1,6 @@
 package com.xs.controller;
 
+import com.xs.domain.User;
 import com.xs.downloader.ZhihuFolloweePageProcessor;
 import com.xs.service.IUserService;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,6 @@ import javax.annotation.Resource;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping("/")
 public class TestController {
 
     @Resource
@@ -18,14 +18,13 @@ public class TestController {
     @RequestMapping(value="/index")
     public void index() {
         System.out.println("Hello SpringMVC");
-
-
         ZhihuFolloweePageProcessor zhihuFolloweePageProcessor = new ZhihuFolloweePageProcessor();
         zhihuFolloweePageProcessor.downloadFollowees();
     }
 
     @RequestMapping(value="/user")
     public void getUser() {
-        userService.selectUserById(1);
+        User user = userService.selectUserById(1);
+        System.out.print("user:" + user.getUserName());
     }
 }
