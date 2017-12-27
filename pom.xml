@@ -34,6 +34,8 @@
 
         <mongo-driver.version>3.6.0</mongo-driver.version>
 
+        <dubbo-version>2.5.8</dubbo-version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -249,6 +251,19 @@
             <version>1.9</version>
         </dependency>
 
+        <!-- dubbo -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>${dubbo-version}</version>
+        </dependency>
+
+        <!-- zkClient -->
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.1</version>
+        </dependency>
     </dependencies>
 
 
