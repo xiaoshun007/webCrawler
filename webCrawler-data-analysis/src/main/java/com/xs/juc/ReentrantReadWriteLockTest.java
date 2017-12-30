@@ -28,17 +28,19 @@ public class ReentrantReadWriteLockTest {
             // 加写锁
             readWriteLock.writeLock().lock();
             try {
+                // Recheck state because another thread might have,acquired write lock and changed state before we did.
                 if (null == value) {
                     System.out.println("缓存map中没有数据，从数据库读取。。。。。。");
                     value = "I want you!";
                     map.put("111", value);
                 }
 
+                // 使用锁降级，如果先释放写锁再加读锁，有可能其他线程也竞争到写锁，导致读取到数据是其他线程写入的值
+                readWriteLock.readLock().lock();
             } finally {
                 readWriteLock.writeLock().unlock();
             }
 
-            readWriteLock.readLock().lock();
         }
 
         readWriteLock.readLock().unlock();
