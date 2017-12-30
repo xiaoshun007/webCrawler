@@ -16,14 +16,14 @@ public class MyRunnable implements Runnable {
         lock.lock();
 
         try {
-            System.out.println(Thread.currentThread() + " running......");
+            System.out.println(Thread.currentThread().getName() + " running......");
             Thread.sleep(5000);
             i++;
             System.out.println(i);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            System.out.println(Thread.currentThread() + " stopped......");
+            System.out.println(Thread.currentThread().getName() + " stopped......");
             lock.unlock();
         }
     }

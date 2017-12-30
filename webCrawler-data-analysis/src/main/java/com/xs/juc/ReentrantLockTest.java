@@ -8,7 +8,7 @@ public class ReentrantLockTest {
         MyRunnable myRunnable = new MyRunnable(lock);
         for (int i = 0; i < 5; i++) {
             // 多个线程共享一个runnable
-            new Thread(myRunnable).start();
+            new Thread(myRunnable, "tt" + i).start();
         }
     }
 }
