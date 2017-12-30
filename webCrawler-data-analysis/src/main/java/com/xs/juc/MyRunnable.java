@@ -17,7 +17,7 @@ public class MyRunnable implements Runnable {
 
         try {
             System.out.println(Thread.currentThread() + " running......");
-            Thread.sleep(500);
+            Thread.sleep(5000);
             i++;
             System.out.println(i);
         } catch (InterruptedException e) {
