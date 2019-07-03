@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import java.util.logging.Logger;
 
-@Controller
+//@Controller
 public class TestController {
 
     @Resource

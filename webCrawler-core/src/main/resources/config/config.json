@@ -1,16 +1,16 @@
 {
   "site": {
-    "domain": "www.zhihu.com",
+    "domain": "www.dianping.com",
     "headers": {
       "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
       "authorization": "Bearer Mi4xUXJwQkF3QUFBQUFBSUVJcjYzQzREQmNBQUFCaEFsVk5iZUVVV3dCajEzU2E4LXVEOWNpeVUtWGxhbmp2RUhpSGR3|1512543085|23df90c43a4e08f1dca791b1db31a0ccf6035d67",
       "Connection":"keep-alive",
-      "Cookie": "q_c1=35b34249bfb34420b35c10a1fa1b15f5|1507262699000|1507262699000; _zap=f73fc1bc-a953-4189-89be-a0689754142d; d_c0='AAACtY0dfwyPTkyAVRi1MbKNNsu8Q2NUW6g=|1507469003'; __utma=51854390.1427305818.1507469004.1507469004.1507555378.2; __utmz=51854390.1507555378.2.2.utmcsr=zhihu.com|utmccn=(referral)|utmcmd=referral|utmcct=/account/unhuman; __utmv=51854390.000--|3=entry_date=20171006=1; aliyungf_tc=AQAAAFIr4giOdgcAI/Tr3VarGJqpLSw9; q_c1=35b34249bfb34420b35c10a1fa1b15f5|1512186053000|1507262699000; capsion_ticket='2|1:0|10:1512186244|14:capsion_ticket|44:NWYxOWVkOWM0ODQ4NDY4YmIxMTlhMTY3YmFkZjNkNDI=|a64daa23ad8b8df9110a07c2f9ab24b18d85b3b638be873a36d2706aa9449460'; z_c0='2|1:0|10:1512186279|4:z_c0|92:Mi4xRkxiMkFBQUFBQUFBQUFLMWpSMV9EQ1lBQUFCZ0FsVk5wMjhQV3dCQVpXaTZ1Q01MYlhHd1hnN1o2ajgxQlRwVjNn|f40298dafb3d4ea3e6191cb676ee15ea1538c8ec1d94f30778b07421be81fcbd'; anc_cap_id=952c341045e8463882f667415f69219b; _xsrf=ef151beb-bec7-4142-85c6-194e1202855a"
+      "Cookie": "aburl=1; _lxsdk_cuid=16ada208f3dc8-0fa5aacfba7397-37617003-13c680-16ada208f3dc8; _lxsdk=16ada208f3dc8-0fa5aacfba7397-37617003-13c680-16ada208f3dc8; _hc.v=faa2568f-ef93-e292-1f0d-2298a450aa6f.1558437728; Hm_lvt_dbeeb675516927da776beeb1d9802bd4=1558437728,1558437835; wedchatguest=g-47975334937873228; cy=16; cye=wuhan; dper=47a261675c93d2f4beaa664b254919ef970ec452597d8bff2a344c6e201d79343ed6507e582fdb774293afe8b39eb37a4cd5b80431d970dfe4a4d35513da9fee0d5a21ba104cb6bc451b4fef9c854958644560b6f90d3aedcfbb2b04e9355c61; ll=7fd06e815b796be3df069dec7836c3df; ua=dpuser_2053913156; ctu=23662111899b0651956ca7e59401be71c202fed9b2527f7d231989f8be08b01f; uamo=18625154261; wed_user_path=163|0; Hm_lpvt_dbeeb675516927da776beeb1d9802bd4=1558444460; _lx_utm=utm_source%3Dgoogle%26utm_medium%3Dorganic; _lxsdk_s=16ada8633d4-cd6-68c-c49%7C%7C9"
     },
     "retryTimes": 3,
     "sleepTime": 0,
     "timeOut": 30000,
-    "cycleRetryTimes": 3
+    "cycleRetryTimes": 100
   },
-  "baseDir": "/Users/san/crawlDatas/zhihu/"
+  "baseDir": "/Users/san/crawlDatas/dianping/"
 }

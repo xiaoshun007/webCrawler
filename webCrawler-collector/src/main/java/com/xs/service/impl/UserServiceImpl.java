@@ -7,14 +7,16 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service("userService")
+//@Service("userService")
 public class UserServiceImpl implements IUserService {
 
     @Resource
     private IUserDao userDao;
 
     public User selectUserById(Integer userId) {
-        return userDao.selectUserById(userId);
-
+//        return userDao.selectUserById(userId);
+        User u = new User();
+        u.setUserId(11);
+        return u;
     }
 }

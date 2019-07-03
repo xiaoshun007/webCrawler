@@ -91,7 +91,7 @@
     <root>
         <level value="info"/>
         <appender-ref ref="stdout"/>
-        <appender-ref ref="myFile"/>
+
     </root>
 
 </log4j:configuration>
